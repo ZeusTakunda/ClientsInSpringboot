@@ -3,7 +3,6 @@ package com.codewithmanu.clientsinspringboot.user;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @Component
 public class UserClient {
@@ -23,9 +22,9 @@ public class UserClient {
                 .bodyToFlux(User.class);
     }
 
-    public User findOne(){
+    public User findUserById(Integer userId) {
         return webClient.get()
-                .uri("/users/1")
+                .uri("/users/{userId}", userId)
                 .retrieve()
                 .bodyToMono(User.class)
                 .block();
